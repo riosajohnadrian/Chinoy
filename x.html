@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jinro's Page</title>
+<link rel="icon" href="FB_IMG_1769579252544.jpg" type="image/x-icon">
+
+<style>
+/* ===== LAYOUT ===== */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+article {
+    padding: 20px;
+    width: 70%;
+    background-color: lightgreen;
+    min-height: 300px;
+    text-align: left-side;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.sidebar {
+    width: 30%;
+    background: hotpink;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: purple;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
+.sidebar ul li a:hover {
+    background: magenta;
+    color: white;
+}
+
+/* ===== NAVIGATION ===== */
+ul.nav {
+    display: flex;
+    list-style: none;
+    margin: 10px;
+    padding: 0;
+    background: violet;
+    border-radius: 20px;
+    flex-wrap: wrap;
+}
+
+ul.nav li {
+    position: relative;
+}
+
+ul.nav li a {
+    display: block;
+    padding: 14px 16px;
+    color: pink;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+ul.nav li a:hover {
+    background-color: grey;
+    color: black;
+}
+
+/* ===== DROPDOWN GENERAL STYLES ===== */
+.dropdown-box {
+    display: none;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    width: 220px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    border-radius: 15px;
+    padding: 5px 0;
+}
+
+.dropdown-box a {
+    display: block;
+    padding: 14px;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    border-radius: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dropdown-box a:hover {
+    background: black;
+    color: white;
+}
+
+/* ===== HEADER & FOOTER ===== */
+header {
+    background: blue;
+    padding: 5px;
+    text-align: center;
+    color: #F5F1E8;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+footer {
+    background: magenta;
+    padding: 5px;
+    text-align: center;
+    color: #F5F1E8;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.name {
+    color: darkmagenta;
+}
+</style>
+</head>
+
+<body>
+    <header>
+        <h2>SDIHS</h2>
+        <h3 style="font-size:18px;">Lesson 8: Optimizing Presentation Software Usage</h3>
+    </header>
+
+    <ul class="nav">
+        <li><a onclick="loadPage('home')">Home</a></li>
+        
+        <li>
+            <a onclick="toggleDropdown('activitiesMenu')">Activities</a>
+            <div id="activitiesMenu" class="dropdown-box">
+                <a onclick="loadActivity('1st')">Activity #1</a>
+                <a onclick="loadActivity('2nd')">Activity #2</a>
+                <a onclick="loadActivity('3rd')">Activity #3</a>
+            </div>
+        </li>
+
+        <li>
+            <a onclick="toggleDropdown('assessmentMenu')">Assessment</a>
+            <div id="assessmentMenu" class="dropdown-box">
+                <a onclick="loadAssessment('multipleChoice')">Multiple Choice</a>
+                <a onclick="loadAssessment('trueFalse')">True or False</a>
+                <a onclick="loadAssessment('identification')">Identification</a>
+            </div>
+        </li>
+
+        <li>
+            <a onclick="toggleDropdown('aboutMenu')">About</a>
+            <div id="aboutMenu" class="dropdown-box">
+                <a onclick="loadAbout('Riosa','https://www.facebook.com/share/1Fsf5Y8MCj/')">Riosa,John Adrian</a>
+                <a onclick="loadAbout('Maala','https://www.facebook.com/share/1GcyHbnzMY/')">Maala,Jinro</a>
+                <a onclick="loadAbout('Delacruz','https://www.facebook.com/share/1Fsf5Y8MCj/')">Delacruz Zamantha</a>
+                <a onclick="loadAbout('Tungcab','https://www.facebook.com/share/1G8MGEE4xe/')">Tungcab, Alvina</a>
+                <a onclick="loadAbout('Panizal','https://www.facebook.com/share/1BvkRIMC9p')">Panizal,Xhymone</a>
+            </div>
+        </li>
+    </ul>
+
+    <section class="container">
+        <nav class="sidebar">
+            <ul>
+                <li><a onclick="loadSidebar('content')">Content</a></li>
+                <li><a onclick="loadSidebar('objectives')">Objectives</a></li>
+                <li><a onclick="loadSidebar('learning competencies')">Learning Competencies</a></li>
+                <li><a onclick="loadSidebar('performance standard')">Performance Standard</a></li>
+                <li><a onclick="loadSidebar('reference')">Reference</a></li>
+            </ul>
+        </nav>
+
+        <article id="content">
+            <h1>Welcome SDIHS!</h1>
+            <p>Batang Santo likas na mabait, matalino, at aktibo! School for talented students.</p>
+        </article>
+    </section>
+
+    <footer>
+        <p>&reg; Fourth Year Students Batch 2025 - 2026</p>
+    </footer>
+
+    <script>
+    /* ===== GENERAL DROPDOWN TOGGLE ===== */
+    function toggleDropdown(menuId) {
+        const allDropdowns = document.querySelectorAll('.dropdown-box');
+        allDropdowns.forEach(box => {
+            if (box.id !== menuId) {
+                box.style.display = 'none';
+            }
+        });
+
+        const menu = document.getElementById(menuId);
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    /* ===== LOAD ABOUT PERSON WITH OPTIONAL FB LINK ===== */
+    function loadAbout(name, fbLink) {
+        toggleDropdown('aboutMenu');
+        let content = `<h1>${name}</h1>`;
+        let profileinfo = "";
+        if (fbLink === 'https://www.facebook.com/share/1Fsf5Y8MCj/') {
+            profileinfo = "<p>Name: John Adrian Riosa<br>No work or school information listed.</p>";
+        } else if (fbLink === 'https://www.facebook.com/share/1GcyHbnzMY/') {
+             profileinfo = "<p>Profile requires login to view details.</p>";
+        } else if (fbLink === 'https://www.facebook.com/share/1G8MGEE4xe/') {
+             profileinfo = "<p>Content not available - may have been shared privately, modified, or deleted.</p>";
+        } else if (fbLink === 'https://www.facebook.com/share/1BvkRIMC9p') {
+             profileinfo = "<p>Profile requires login to view details.</p>";
+        }
+
+        if (fbLink && fbLink !== '#') {
+            content += `<p>Facebook: <a href="${fbLink}" target="_blank">Visit Profile</a></p>`;
+            content += profileinfo;
+        } else {
+            content += `<p>About information goes here.</p>`;
+        }
+        document.getElementById("content").innerHTML = content;
+    }
+
+    /* ===== LOAD ACTIVITY DETAILS ===== */
+    function loadActivity(activity) {
+        toggleDropdown('activitiesMenu');
+        let content = `<h1>Activity ${activity}</h1>`;
+        switch (activity) {
+            case '1st':
+                content += `
+                <strong>COLUMN A</strong>
+                <p>1. Hyperlink</p>
+                <p>2. Action Buttons</p>
+                <p>3. Motion Paths</p>
+                <p>4. Master Slide</p>
+                <strong>COLUMN B</strong>
+                <p>A. Built-in buttons that let you move between slides or perform actions like going to next/previous slide or exiting the presentation.</p>
+                <p>B. Animations that move an object along a specific path (straight, curved, custom) on a slide.</p>
+                <p>C. A clickable text, image, or object that takes you to another slide, a file, website, or email address.</p>
+                <p>D. A main slide controlling design, layout, fonts, and background.</p>`;
+                break;
+            case '2nd':
+                content += `<h1>Arrange the jumbled words according to their description:</h1>
+                <p>NOCTAI STNTOBU - Action Buttons</p>
+                <p>TOMNIO SHTAP - Motion Paths</p>
+                <p>LEPRYNHIK - Hyperlink</p>
+                <p>REMATS EDLIS - Master Slide</p>`;
+                break;
+            case '3rd':
+                content += `<h1>Fill in the Blanks</h1>
+                <p>1. A ________ is used to jump to a website or another slide instantly.</p>
+                <p>2. To make all slides look the same automatically, use the ________ Slide.</p>
+                <p>3. ________ paths allow objects to move in specific directions on your slide.</p>
+                <p>4. The ________ buttons are built-in shapes used for navigation.</p>
+                <p>5. Optimizing software helps minimize ________ inefficiencies.</p>`;
+                break;
+            default:
+                content += `<p>Activity details will be updated soon.</p>`;
+        }
+        document.getElementById("content").innerHTML = content;
+    }
+
+    /* ===== LOAD ASSESSMENT DETAILS ===== */
+    function loadAssessment(type) {
+        toggleDropdown('assessmentMenu');
+        let content = "";
+        switch (type) {
+            case 'multipleChoice':
+                content = `<h1>Multiple Choice Assessment</h1>
+                <p>DIRECTIONS: Read each item carefully and choose the correct answer.</p>
+                <p>1. Which of the following refers to a clickable object inserted in a slide?</p>
+                <p>A. Motion Path | B. Action Button | C. Hyperlink | D. Transition</p>
+                <p>2. What do you call a specific path assigned to an animation?</p>
+                <p>A. Slide Layout | B. Transition Effect | C. Motion Path | D. Animation Sequence</p>
+                <p>3. The entire collection of slides used to deliver information is known as a </p>
+                <p>A. Slide Deck | B. Master Slide | C. Presentation | D. Slide Page</p>
+                <p>4. A template that helps you display text, images, or charts is a </p>
+                <p>A. Layout | B. Page | C. Slide | D. Frame</p>
+                <p>5. What term describes the movement and visual interest of slides?</p>
+                <p>A. Animation | B. Transition | C. Dynamics | D. Visual Flow</p>`;
+                break;
+            case 'trueFalse':
+                content = `<h1>Assessment: True or False</h1>
+                <p>1. Hyperlinks can only link to websites. (True/False)</p>
+                <p>2. A Master Slide helps keep the design consistent across all slides. (True/False)</p>
+                <p>3. Motion paths are used to change the background color. (True/False)</p>
+                <p>4. Action buttons can be used to go to the next slide. (True/False)</p>
+                <p>5. Presentation software optimization increases technical errors. (True/False)</p>`;
+                break;
+            case 'identification':
+                content = `<h1>Assessment: Identification</h1>
+                <p>1. What is the clickable text or object that leads to a website?</p>
+                <p>2. What do you call the animation that follows a custom line?</p>
+                <p>3. Which feature controls the overall layout and fonts of the presentation?</p>
+                <p>4. What are the built-in shapes used specifically for navigation?</p>
+                <p>5. What is the process of inspecting data to support decision-making?</p>`;
+                break;
+        }
+        document.getElementById("content").innerHTML = content;
+    }
+
+    /* ===== TOP MENU PAGES ===== */
+    function loadPage(page) {
+        const allDropdowns = document.querySelectorAll('.dropdown-box');
+        allDropdowns.forEach(box => box.style.display = 'none');
+
+        const c = document.getElementById("content");
+        if (page === "home") {
+            c.innerHTML = `
+            <h1>Mission, Vision, and Core Values</h1>
+            <hr>
+            <div id="mission">
+            <h1 style="font-family:freestyle script">Mission</h1>
+            <p>To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education where:</p>
+            <p>Students learn in a child-friendly, gender-sensitive, safe, and motivating environment.</p>
+            <p>Teachers facilitate learning and constantly nurture every learner.</p>
+            <p>Administrators and staff, as stewards of the institution, ensure an enabling and supportive environment for effective learning.</p>
+            <p>Family, community, and other stakeholders are actively engaged and share responsibility for developing life-long learners.</p>
+            </div>
+            <div id="vision">
+            <h1 style="font-family:freestyle script">Vision</h1>
+            <p>We dream of Filipinos who passionately love their country and whose values and competencies enable them to realize their full potential and contribute meaningfully to building the nation.</p>
+            </div>
+            <div id="core-values">
+            <h1 style="font-family:freestyle script">Core Values</h1>
+            <p>Maka-Diyos, Maka-Tao, Makakalikasan, Makabansa</p>
+            </div>`;
+        } else if (page === "assessment") {
+            loadAssessment('multipleChoice');
+        }
+    }
+
+    /* ===== SIDEBAR CONTENT LOAD ===== */
+    function loadSidebar(topic) {
+        const c = document.getElementById("content");
+        if (topic === "content") {
+            c.innerHTML = `<h1>Optimizing Presentation Software Usage</h1>
+            <p>Refers to the strategic and efficient application of tools like Microsoft PowerPoint, Google Slides, Apple Keynote, or similar platforms to create, deliver, and manage presentations that are clear, engaging, and aligned with specific goals—while minimizing technical inefficiencies, unnecessary complexity, and wasted time.</p>
+            <p>This practice encompasses multiple elements: selecting appropriate templates and design elements to enhance readability and visual coherence; leveraging features like master slides, styles, and reusable components to streamline creation and ensure consistency; optimizing file sizes by compressing media and avoiding redundant content; customizing settings for seamless delivery across different devices or venues; and integrating interactive elements (such as hyperlinks, animations, or multimedia) purposefully to support key messages without distracting from them. It also involves organizing and storing presentation files effectively for easy access, collaboration, and future updates.</p>
+            <strong>Hyperlink</strong>
+            <p>A hyperlink is a clickable text, image, or object that takes you to another slide, a file, a website, or an email address.</p>
+            <strong>Action Buttons</strong>
+            <p>Are built-in buttons in PowerPoint that let you move between slides or perform actions like going to the next slide, previous slide, or exiting the presentation.</p>
+            <strong>Motion Paths</strong>
+            <p>Motion paths are animations that move an object along a specific path on a slide, such as straight, curved, or custom paths.</p>
+            <strong>Master Slide</strong>
+            <p>The master slide is a main slide that controls the design, layout, fonts, and background of all slides in a presentation, helping keep everything consistent.</p>`;
+        } else if (topic === "objectives") {
+            c.innerHTML = `<h1>Objectives</h1>
+            <strong>Streamline Creation Workflows</strong>
+            <p>Reduce time spent building slides by using reusable elements, templates, and automation tools.</p>
+            <strong>Enhance Visual Clarity & Impact</strong>
+            <p>Ensure content is easy to read and engaging through purposeful design choices and consistent formatting.</p>
+            <strong>Minimize Technical Issues</strong>
+            <p>Optimize file sizes and compatibility to prevent delays or errors during delivery across devices/venues.</p>
+            <strong>Boost Message Retention</strong>
+            <p>Use interactive features and multimedia strategically to reinforce key points and keep audiences focused.</p>
+            <strong>Improve Collaboration & Manageability</strong>
+            <p>Organize files, enable seamless sharing, and simplify updates for teams working on presentations together.</p>`;
+        } else if (topic === "learning competencies") {
+            c.innerHTML = `<h1>Learning Competencies</h1>
+            <p>The learners will create presentations with master slide, motion paths, hyperlinks, and action buttons and they know how to make their power point presentation organized and visible.</p>`;
+        } else if (topic === "performance standard") {
+            c.innerHTML = `<h1>Performance Standard</h1>
+            <p>Expected Outcome</p>
+            <p>Students must learn how to use action buttons, hyperlinks, motion paths, and master slides on their power point presentation</p>
+            <p>Students must know how to make their power point organize and visible</p>`;
+        } else if (topic === "reference") {
+            c.innerHTML = `<h1>References</h1>
+            <p>For more information about optimizing presentation software, you can visit the following:</p>
+            <ul>
+                <li><strong>Microsoft Support:</strong> Tips for creating and delivering an effective presentation.</li>
+                <li><strong>Google Workspace Learning Center:</strong> Best practices for Google Slides.</li>
+                <li><strong>DepEd Commons:</strong> Empowerment Technologies Module - Advanced Presentation Skills.</li>
+                <li><strong>GCFGlobal.org:</strong> PowerPoint Basics and Master Slide Tutorials.</li>
+            </ul>
+            <p>These materials were used to ensure the accuracy of our lesson.</p>`;
+        }
+    }
+    </script>
+</body>
+</html>
